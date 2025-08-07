@@ -1,6 +1,6 @@
 {
-    "name": "awsome_places",
-    "short_name": "awsome_places",
+    "name": "dummy_project",
+    "short_name": "dummy_project",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

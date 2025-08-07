@@ -3,17 +3,22 @@ import 'package:digital_expenz_tracker/models/onboarding_model.dart';
 class Onboardingdata {
   static final List<Onboarding> onboardingDataList = [
     Onboarding(
-        title: "Gain total control of your Digital money",
-        imagepath: "assets/images/onboard_1.png",
-        description: "Become your own money manger and make every cent count"),
+      title: "Take Full Control of Your Finances",
+      imagepath: "assets/images/onboard_1.png",
+      description:
+          "Manage your digital money with ease and track every rupee you spend.",
+    ),
     Onboarding(
-        title: "know where your money go",
-        imagepath: "assets/images/onboard_2.png",
-        description:
-            "Track your transaction easily, with category and finacial report"),
+      title: "Know Where Every Rupee Goes",
+      imagepath: "assets/images/onboard_2.png",
+      description:
+          "Effortlessly track your transactions by category and view clear financial reports.",
+    ),
     Onboarding(
-        title: "plannig ahead",
-        imagepath: "assets/images/onboard_3.png",
-        description: "Set you buget for each category so in controll"),
+      title: "Plan Ahead and Stay on Budget",
+      imagepath: "assets/images/onboard_3.png",
+      description:
+          "Set smart budgets for each category and stay in control of your spending.",
+    ),
   ];
 }
