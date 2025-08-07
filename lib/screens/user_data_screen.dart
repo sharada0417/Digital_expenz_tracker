@@ -1,5 +1,7 @@
 import 'package:digital_expenz_tracker/constants/colors.dart';
 import 'package:digital_expenz_tracker/constants/constants.dart';
+import 'package:digital_expenz_tracker/screens/main_screen.dart';
+import 'package:digital_expenz_tracker/services/userService.dart';
 import 'package:digital_expenz_tracker/widgets/Custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -124,7 +126,7 @@ class _UserState extends State<UserDataScreen> {
                         controller: _ConformPasswordController,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Please Enter the valid password";
+                            return "Please Enter the same password";
                           }
                           return null;
                         },
@@ -164,7 +166,7 @@ class _UserState extends State<UserDataScreen> {
                         height: 30,
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (_formkey.currentState!.validate()) {
                             //form is valid process data
                             String username = _userNameController.text;
@@ -172,8 +174,23 @@ class _UserState extends State<UserDataScreen> {
                             String password = _passwordController.text;
                             String conformpassword =
                                 _ConformPasswordController.text;
-                            print(
-                                "$username $Email $password $conformpassword");
+
+                            //save the user name and email in the device storage
+                            await UserServices.storeUserDetails(
+                              userName: username,
+                              email: Email,
+                              password: password,
+                              conformPassword: conformpassword,
+                              context: context,
+                            );
+
+                            //navigator to the main screen
+                            if (context.mounted) {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return const MainScreen();
+                              }));
+                            }
                           }
                         },
                         child: const CustomButton(

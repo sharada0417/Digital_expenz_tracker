@@ -10,16 +10,16 @@ class UserServices {
     required String conformPassword,
     required BuildContext context,
   }) async {
-    //if the users password and conf paswword are same then store the users name and email
+    //check weather the user entered password and the confirm password the same
+    if (password != conformPassword) {
+      //show a message to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("Password and confirm password do not match")),
+      );
+    }
+
     try {
-      //check weather the user entered password and the confirm password the same
-      if (password != conformPassword) {
-        //show a message to the user
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text("Password and confirm password do not match")),
-        );
-      }
       //create an instance from shared pref
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //store the user name and email as key value pairs
@@ -36,5 +36,13 @@ class UserServices {
     } catch (err) {
       err.toString();
     }
+  }
+
+  //method to cjheck user name is save in shared preferences
+  static Future<bool> checkusername() async {
+    //create instance fo shared pref
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userName = prefs.getString('username');
+    return userName != null;
   }
 }
