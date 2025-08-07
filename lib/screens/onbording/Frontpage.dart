@@ -15,9 +15,13 @@ class Frontpage extends StatelessWidget {
         ),
         const Center(
           child: Text(
-            "Plant safe",
+            "Digital Expenz\nTracker",
+            textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 35, color: kMainColor, fontWeight: FontWeight.bold),
+              fontSize: 35,
+              color: kMainColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         )
       ],
