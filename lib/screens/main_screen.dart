@@ -1,11 +1,13 @@
 import 'package:digital_expenz_tracker/constants/colors.dart';
 import 'package:digital_expenz_tracker/models/Expenz_model.dart';
+import 'package:digital_expenz_tracker/models/income_model.dart';
 import 'package:digital_expenz_tracker/screens/Transaction_screen.dart';
 import 'package:digital_expenz_tracker/screens/add_new_screen.dart';
 import 'package:digital_expenz_tracker/screens/buget_screen.dart';
 import 'package:digital_expenz_tracker/screens/home_screen.dart';
 import 'package:digital_expenz_tracker/screens/profile_screen.dart';
 import 'package:digital_expenz_tracker/services/expense_service.dart';
+import 'package:digital_expenz_tracker/services/income_service.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -20,6 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   int _currentPageIndex = 0;
 
   List<Expense> expenseList = [];
+  List<IncomeModel> incomeList = [];
 
   //function to fetch expences
   void fetchAllExpences() async {
@@ -29,11 +32,21 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  //function to fetch all incomes
+  void fetchAllIncome() async {
+    List<IncomeModel> loadedIncome = await IncomeService().loadIncomes();
+    setState(() {
+      incomeList = loadedIncome;
+      print(expenseList.length);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     setState(() {
       fetchAllExpences();
+      fetchAllIncome();
     });
   }
 
@@ -48,6 +61,17 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  //function to add new income
+  void addNewIncome(IncomeModel newIncome) {
+    IncomeService().saveIncome(newIncome, context);
+
+    //updated the income List
+    setState(() {
+      incomeList.add(newIncome);
+      print(incomeList.length);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
@@ -55,6 +79,7 @@ class _MainScreenState extends State<MainScreen> {
       const TransactionScreen(),
       AddNewScreen(
         addExpense: addNewExpense,
+        addIncome: addNewIncome,
       ),
       const BugetScreen(),
       const ProfileScreen(),
