@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class IncomeExpenceCard extends StatefulWidget {
   final String title;
-  final int amount;
+  final double amount;
   final String imageUrl;
   final Color bgColor;
 

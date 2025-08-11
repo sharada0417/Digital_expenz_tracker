@@ -1,11 +1,18 @@
 import 'package:digital_expenz_tracker/constants/colors.dart';
 import 'package:digital_expenz_tracker/constants/constants.dart';
+import 'package:digital_expenz_tracker/models/Expenz_model.dart';
+import 'package:digital_expenz_tracker/models/income_model.dart';
 import 'package:digital_expenz_tracker/services/userService.dart';
+import 'package:digital_expenz_tracker/widgets/expense_card.dart';
 import 'package:digital_expenz_tracker/widgets/income_expence_card.dart';
+import 'package:digital_expenz_tracker/widgets/line_chart.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final List<Expense> expenseList;
+  final List<IncomeModel> incomeList;
+  const HomeScreen(
+      {super.key, required this.expenseList, required this.incomeList});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -14,7 +21,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   //for store the username
   String username = "";
-
+  double expenseTotal = 0;
+  double incomeTotal = 0;
   @override
   void initState() {
     //get the user name from the shared pref
@@ -24,6 +32,18 @@ class _HomeScreenState extends State<HomeScreen> {
           username = value['username']!;
           print(username);
         });
+      }
+    });
+
+    setState(() {
+      //total amount of expenses
+      for (var i = 0; i < widget.expenseList.length; i++) {
+        expenseTotal += widget.expenseList[i].amount;
+      }
+
+      //total amount of incomes
+      for (var k = 0; k < widget.incomeList.length; k++) {
+        incomeTotal += widget.incomeList[k].amount;
       }
     });
     super.initState();
@@ -36,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SingleChildScrollView(
           //main column
           child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
@@ -90,17 +111,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IncomeExpenceCard(
                           title: "Income",
-                          amount: 500,
+                          amount: incomeTotal,
                           imageUrl: "assets/images/income.png",
                           bgColor: kGreen),
                       IncomeExpenceCard(
-                          title: "Income",
-                          amount: 500,
+                          title: "Expense",
+                          amount: expenseTotal,
                           imageUrl: "assets/images/expense.png",
                           bgColor: kRed),
                     ],
@@ -116,6 +137,51 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   "Spend Frequency",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                LineChartSample(),
+              ],
+            ),
+          ),
+          //recoent transaction
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultpadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Text Transactions",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  children: [
+                    widget.expenseList.isEmpty
+                        ? const Text(
+                            "No Income added yet , add some Income to see here",
+                            style: TextStyle(fontSize: 16, color: kGrey),
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: widget.expenseList.length,
+                            itemBuilder: (context, index) {
+                              final expense = widget.expenseList[index];
+                              return ExpenseCard(
+                                  title: expense.title,
+                                  date: expense.date,
+                                  amount: expense.amount,
+                                  category: expense.category,
+                                  description: expense.description,
+                                  time: expense.time);
+                            },
+                          ),
+                  ],
                 )
               ],
             ),
