@@ -51,6 +51,7 @@ class IncomeService {
 
   //load the income from shared preferences
   Future<List<IncomeModel>> loadIncomes() async {
+    try {} catch (error) {}
     SharedPreferences pref = await SharedPreferences.getInstance();
     List<String>? existingIncomes = pref.getStringList(_incomeKey);
 
@@ -62,5 +63,53 @@ class IncomeService {
           .toList();
     }
     return loadedIcomes;
+  }
+
+  //Function to delete an income
+  Future<void> deleteIncome(int id, BuildContext context) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String>? existingIncomes = prefs.getStringList(_incomeKey);
+
+      //convert the existing incomes to a list of Income objects
+      List<IncomeModel> existingIncomeObjects = [];
+      if (existingIncomes != null) {
+        existingIncomeObjects = existingIncomes
+            .map((e) => IncomeModel.fromJSON(json.decode(e)))
+            .toList();
+      }
+
+      //Remove the income with the given id from the list
+      existingIncomeObjects.removeWhere((income) => income.id == id);
+
+      //convert the list of Income with the given id from the ist
+      List<String> updatedIncomes =
+          existingIncomeObjects.map((e) => json.encode(e.toJSON())).toList();
+
+      //Save the updated list of income to shared preferences
+      await prefs.setStringList(_incomeKey, updatedIncomes);
+
+      //show  message
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Income deleted sucessfully"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (error) {
+      print(error.toString());
+
+      //show snackbar
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Error deleting Income!"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 }
