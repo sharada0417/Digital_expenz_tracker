@@ -44,10 +44,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      fetchAllExpences();
-      fetchAllIncome();
-    });
+    // Removed unnecessary setState here; async calls inside initState don't need setState wrapping
+    fetchAllExpences();
+    fetchAllIncome();
   }
 
   //function to add a new expense

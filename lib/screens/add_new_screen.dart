@@ -33,6 +33,7 @@ class _AddNewScreenState extends State<AddNewScreen> {
     _titleController.dispose();
     _amountController.dispose();
     _descriptionController.dispose();
+    super.dispose();
   }
 
   @override

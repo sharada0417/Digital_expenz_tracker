@@ -1,4 +1,5 @@
 import 'package:digital_expenz_tracker/constants/colors.dart';
+import 'package:digital_expenz_tracker/constants/constants.dart';
 import 'package:digital_expenz_tracker/services/userService.dart';
 import 'package:digital_expenz_tracker/widgets/income_expence_card.dart';
 import 'package:flutter/material.dart';
@@ -106,6 +107,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(kDefaultpadding),
+            child: Column(
+              children: [
+                Text(
+                  "Spend Frequency",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                )
+              ],
             ),
           )
         ],

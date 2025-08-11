@@ -11,12 +11,15 @@ class TransactionScreen extends StatefulWidget {
   final List<IncomeModel> incomeList;
   final void Function(Expense) onDismissedExpense;
   final void Function(IncomeModel) onDismissedIncome;
-  const TransactionScreen(
-      {super.key,
-      required this.expensesList,
-      required this.onDismissedExpense,
-      required this.incomeList,
-      required this.onDismissedIncome});
+
+  // Constructor requires all 4 parameters
+  const TransactionScreen({
+    super.key,
+    required this.expensesList,
+    required this.onDismissedExpense,
+    required this.incomeList,
+    required this.onDismissedIncome,
+  });
 
   @override
   State<TransactionScreen> createState() => _TransactionScreenState();
@@ -37,17 +40,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
               style: TextStyle(
                   fontSize: 18, fontWeight: FontWeight.w500, color: kMainColor),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             const Text(
               "Expenses",
               style: TextStyle(
                   fontSize: 18, fontWeight: FontWeight.bold, color: kBlack),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.35,
               child: SingleChildScrollView(
@@ -82,19 +81,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             const Text(
               "Incomes",
               style: TextStyle(
                   fontSize: 18, fontWeight: FontWeight.bold, color: kBlack),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.30,
+              height: MediaQuery.of(context).size.height * 0.10,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
