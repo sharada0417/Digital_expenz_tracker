@@ -56,6 +56,7 @@ class ExpenseService {
 
   //Load the Expense from shared preferences
   Future<List<Expense>> loadExpenses() async {
+    try {} catch (error) {}
     SharedPreferences pref = await SharedPreferences.getInstance();
     List<String>? existingExpenses = pref.getStringList(_expenseKey);
 
@@ -67,5 +68,53 @@ class ExpenseService {
           .toList();
     }
     return lodedExpense;
+  }
+
+  //Delete the expense from shared preferences from the id
+  Future<void> deleteExpense(int id, BuildContext context) async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      List<String>? existingExpeneses = pref.getStringList(_expenseKey);
+
+      //convert the existing expense to alist of Expense objects
+      List<Expense> existingExpenseObjects = [];
+      if (existingExpeneses != null) {
+        existingExpenseObjects = existingExpeneses
+            .map((e) => Expense.fromJSON(json.decode(e)))
+            .toList();
+      }
+
+      //Remove the expense with the specified id from the list
+      existingExpenseObjects.removeWhere((expens) => expens.id == id);
+
+      //Covert the list of Expense objects back to a list of strings
+      List<String> updatedExpenses =
+          existingExpenseObjects.map((e) => json.encode(e.toJSON())).toList();
+
+      //save the updated list of expenses to shared preferences
+      await pref.setStringList(_expenseKey, updatedExpenses);
+
+      //show snackbar
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Expense deleted Sucessfully!"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (error) {
+      print(error.toString());
+
+      //show snackbar
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Error deleting Sucessfully!"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 }
