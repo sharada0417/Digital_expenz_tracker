@@ -25,13 +25,13 @@ class _chartState extends State<chart> {
     if (widget.isExpense) {
       return [
         PieChartSectionData(
-          color: expenseCategoriesColors[ExpenceCategory.food],
-          value: widget.expenseCategoryTotals[ExpenceCategory.food] ?? 0,
+          color: expenseCategoriesColors[ExpenceCategory.bills],
+          value: widget.expenseCategoryTotals[ExpenceCategory.bills] ?? 0,
           radius: 60,
         ),
         PieChartSectionData(
-          color: expenseCategoriesColors[ExpenceCategory.health],
-          value: widget.expenseCategoryTotals[ExpenceCategory.shopping] ?? 0,
+          color: expenseCategoriesColors[ExpenceCategory.crypto],
+          value: widget.expenseCategoryTotals[ExpenceCategory.crypto] ?? 0,
           radius: 60,
         ),
         PieChartSectionData(
@@ -41,8 +41,8 @@ class _chartState extends State<chart> {
           radius: 60,
         ),
         PieChartSectionData(
-          color: expenseCategoriesColors[ExpenceCategory.transaport],
-          value: widget.expenseCategoryTotals[ExpenceCategory.transaport] ?? 0,
+          color: expenseCategoriesColors[ExpenceCategory.stockmarket],
+          value: widget.expenseCategoryTotals[ExpenceCategory.stockmarket] ?? 0,
           radius: 60,
         ),
       ];

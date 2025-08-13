@@ -90,12 +90,11 @@ class _MainScreenState extends State<MainScreen> {
   //category total expenses
   Map<ExpenceCategory, double> calculateExpenseCategory() {
     Map<ExpenceCategory, double> categoryTotals = {
-      ExpenceCategory.food: 0,
-      ExpenceCategory.health: 0,
-      ExpenceCategory.shopping: 0,
+      ExpenceCategory.bills: 0,
+      ExpenceCategory.crypto: 0,
       ExpenceCategory.shopping: 0,
       ExpenceCategory.subscriptions: 0,
-      ExpenceCategory.transaport: 0,
+      ExpenceCategory.stockmarket: 0,
     };
 
     for (Expense expenese in expenseList) {

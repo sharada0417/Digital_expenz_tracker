@@ -1,28 +1,22 @@
 //enum for expense categories
 import 'package:flutter/rendering.dart';
 
-enum ExpenceCategory {
-  food,
-  transaport,
-  health,
-  shopping,
-  subscriptions,
-}
+enum ExpenceCategory { shopping, bills, subscriptions, stockmarket, crypto }
 
 //categories images
 final Map<ExpenceCategory, String> expenseCategoriesImages = {
-  ExpenceCategory.food: "assets/images/restaurant.png",
-  ExpenceCategory.transaport: "assets/images/car.png",
-  ExpenceCategory.health: "assets/images/health.png",
+  ExpenceCategory.bills: "assets/images/bill.png",
+  ExpenceCategory.stockmarket: "assets/images/car.png",
+  ExpenceCategory.crypto: "assets/images/health.png",
   ExpenceCategory.shopping: "assets/images/bag.png",
-  ExpenceCategory.subscriptions: "assets/images/bill.png",
+  ExpenceCategory.subscriptions: "assets/images/restaurant.png",
 };
 
 //cateogry colors
 final Map<ExpenceCategory, Color> expenseCategoriesColors = {
-  ExpenceCategory.food: const Color(0xFFE57373),
-  ExpenceCategory.transaport: const Color(0xFF81C784),
-  ExpenceCategory.health: const Color(0xFF64B5F6),
+  ExpenceCategory.bills: const Color(0xFFE57373),
+  ExpenceCategory.stockmarket: const Color(0xFF81C784),
+  ExpenceCategory.crypto: const Color(0xFF64B5F6),
   ExpenceCategory.shopping: const Color(0xFFFFD54F),
   ExpenceCategory.subscriptions: const Color(0xFF9575CD),
 };

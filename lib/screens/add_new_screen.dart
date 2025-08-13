@@ -21,7 +21,7 @@ class AddNewScreen extends StatefulWidget {
 class _AddNewScreenState extends State<AddNewScreen> {
   //state to track the expence or income
   int _selectedMethod = 0;
-  ExpenceCategory _expenceCategory = ExpenceCategory.health;
+  ExpenceCategory _expenceCategory = ExpenceCategory.crypto;
   IncomeCategory _incomeCategory = IncomeCategory.salary;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
